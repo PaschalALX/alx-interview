@@ -1,7 +1,7 @@
 from math import ceil
 
 
-def pascal_triangle(n: int):
+def pascal_triangle(n):
     if n <= 0:
         return []
 
