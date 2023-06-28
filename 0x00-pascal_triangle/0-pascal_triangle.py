@@ -1,39 +1,20 @@
 #!/usr/bin/python3
-'''
-Pascal's Triangle
-'''
-from math import ceil
+"""
+0. Pascal's Triangle
+"""
 
 
 def pascal_triangle(n):
-    '''
-        returns a list of lists of integers representing the Pascal’s
-        triangle of n
-    '''
-    if n <= 0:
-        return []
-
-    main_list = []
-
-    for x in range(n):
-        sub_list = list(range(x + 1))
-        sub_list[0] = 1
-        sub_list[x] = 1
-
-        curr_n = x + 1
-        idx_stop = ceil(curr_n / 2) - 1
-
-        if curr_n >= 3:
-            ini_sub_list = main_list[x - 1]
-            isl_len = len(ini_sub_list)
-
-            for idx, y in enumerate(ini_sub_list):
-                if idx >= 1:
-                    sub_list[idx] = y + ini_sub_list[idx - 1]
-                    sub_list[isl_len - idx] = y + ini_sub_list[idx - 1]
-                if idx == idx_stop:
-                    break
-
-        main_list.append(sub_list)
-
-    return main_list
+    """Create a function def pascal_triangle(n): that returns a list of lists
+    of integers representing the Pascal’s triangle of n
+    """
+    res = []
+    if n > 0:
+        for i in range(1, n + 1):
+            level = []
+            C = 1
+            for j in range(1, i + 1):
+                level.append(C)
+                C = C * (i - j) // j
+            res.append(level)
+    return res
