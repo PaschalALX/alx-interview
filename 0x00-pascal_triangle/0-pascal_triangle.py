@@ -1,21 +1,21 @@
 from math import ceil
 
 
-def pascal_triangle(num: int):
-    if num <= 0:
+def pascal_triangle(n: int):
+    if n <= 0:
         return []
 
     main_list = []
 
-    for x in range(num):
+    for x in range(n):
         sub_list = list(range(x + 1))
         sub_list[0] = 1
         sub_list[x] = 1
 
-        curr_num = x + 1
-        idx_stop = ceil(curr_num / 2) - 1
+        curr_n = x + 1
+        idx_stop = ceil(curr_n / 2) - 1
 
-        if curr_num >= 3:
+        if curr_n >= 3:
             ini_sub_list = main_list[x - 1]
             isl_len = len(ini_sub_list)
 
