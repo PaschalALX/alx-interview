@@ -8,13 +8,18 @@ def pascal_triangle(n):
     """Create a function def pascal_triangle(n): that returns a list of lists
     of integers representing the Pascal’s triangle of n
     """
-    res = []
+    result = []
     if n > 0:
-        for i in range(1, n + 1):
-            level = []
-            C = 1
-            for j in range(1, i + 1):
-                level.append(C)
-                C = C * (i - j) // j
-            res.append(level)
-    return res
+        for x in range(1, n + 1):
+            row = list(x**0 for x in range(x))
+            try:
+                prev_row = result[-1]
+                for y in range(len(prev_row)):
+                    try:
+                        row[y + 1] = prev_row[y] + prev_row[y + 1]
+                    except IndexError:
+                        row[y + 1] = prev_row[y]
+                result.append(row)
+            except IndexError:
+                result.append(row)
+    return result
