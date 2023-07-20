@@ -1,7 +1,8 @@
 #!/usr/bin/python3
-import sys
 
 """ script that reads stdin line by line and computes metrics """
+
+import sys
 
 log_data = {
     "total_file_size": 0,
