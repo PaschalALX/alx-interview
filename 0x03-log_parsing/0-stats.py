@@ -4,35 +4,43 @@
 
 import sys
 
-log_data = {
-    "total_file_size": 0,
-    "status_codes": {200: 0, 301: 0, 400: 0, 401: 0, 403: 0,
-                     404: 0, 405: 0, 500: 0}
-}
-cnt = 0
+
+def printStatus(dic, size):
+    """ Prints information """
+    print("File size: {:d}".format(size))
+    for i in sorted(dic.keys()):
+        if dic[i] != 0:
+            print("{}: {:d}".format(i, dic[i]))
 
 
-def print_log_data(log_data):
-    ''' print log data'''
-    print(f"File size: {log_data.get('total_file_size')}")
-    {print(f"{k}: {v}") for k, v in log_data.get('status_codes').items() if v}
+# sourcery skip: use-contextlib-suppress
+statusCodes = {"200": 0, "301": 0, "400": 0, "401": 0, "403": 0,
+               "404": 0, "405": 0, "500": 0}
 
+count = 0
+size = 0
 
 try:
     for line in sys.stdin:
-        inputs = line.split()
-        try:
-            file_size = inputs[-1]
-            status_code = inputs[-2]
-            log_data["total_file_size"] += int(file_size)
-            log_data["status_codes"][int(status_code)] += 1
+        if count != 0 and count % 10 == 0:
+            printStatus(statusCodes, size)
 
-            if cnt and cnt % 10 == 0:
-                print_log_data(log_data)
-                cnt = -1
-            cnt += 1
+        stlist = line.split()
+        count += 1
+
+        try:
+            size += int(stlist[-1])
         except Exception:
             pass
 
+        try:
+            if stlist[-2] in statusCodes:
+                statusCodes[stlist[-2]] += 1
+        except Exception:
+            pass
+    printStatus(statusCodes, size)
+
+
 except KeyboardInterrupt:
-    print_log_data(log_data)
+    printStatus(statusCodes, size)
+    raise
