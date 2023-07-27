@@ -55,12 +55,12 @@ def isUTF8(num):
 def validUTF8(data):
     """ determines if a given data set represents a valid UTF-8 encoding """
 
-    if not data:
+    if not data or type(data) != list:
+        return False
+
+    if not len(data):
         return True
 
-    if type(data) != list:
-        return False
-    
     for x in data:
         if not isUTF8(x):
             return False
